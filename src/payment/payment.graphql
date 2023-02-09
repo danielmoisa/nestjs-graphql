@@ -1,0 +1,12 @@
+input CreateSessionInput {
+  id: Float!
+  quantity: Float!
+}
+
+type CreateSessionResponseDto {
+  url: String!
+}
+
+type Mutation {
+  createCheckoutSession(items: [CreateSessionInput!]!): CreateSessionResponseDto
+}

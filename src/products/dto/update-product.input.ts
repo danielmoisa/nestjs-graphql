@@ -1,28 +1,22 @@
 import { CreateProductInput } from './create-product.input';
 import { PartialType } from '@nestjs/mapped-types';
-import { IsNotEmpty, IsString, IsInt } from 'class-validator';
+import { Field } from '@nestjs/graphql';
 export class UpdateProductInput extends PartialType(CreateProductInput) {
-  @IsNotEmpty()
-  @IsInt()
+  @Field()
   id: number;
 
-  @IsNotEmpty()
-  @IsString()
+  @Field()
   name: string;
 
-  @IsNotEmpty()
-  @IsInt()
+  @Field()
   price: number;
 
-  @IsNotEmpty()
-  @IsString()
+  @Field()
   description: string;
 
-  @IsNotEmpty()
-  @IsString()
+  @Field()
   image: string;
 
-  @IsNotEmpty()
-  @IsString()
+  @Field()
   brand: string;
 }
