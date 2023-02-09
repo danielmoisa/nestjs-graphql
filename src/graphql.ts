@@ -9,15 +9,31 @@
 /* eslint-disable */
 
 export interface CreateProductInput {
-    exampleField?: Nullable<number>;
+    name?: Nullable<string>;
+    price?: Nullable<number>;
+    description?: Nullable<string>;
+    image?: Nullable<string>;
+    brand?: Nullable<string>;
 }
 
 export interface UpdateProductInput {
-    id: number;
+    id?: Nullable<number>;
+    name?: Nullable<string>;
+    price?: Nullable<number>;
+    description?: Nullable<string>;
+    image?: Nullable<string>;
+    brand?: Nullable<string>;
 }
 
 export interface Product {
-    exampleField?: Nullable<number>;
+    id?: Nullable<string>;
+    name?: Nullable<string>;
+    price?: Nullable<number>;
+    description?: Nullable<string>;
+    image?: Nullable<string>;
+    brand?: Nullable<string>;
+    createdAt?: Nullable<string>;
+    updatedAt?: Nullable<string>;
 }
 
 export interface IQuery {

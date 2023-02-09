@@ -1,15 +1,29 @@
 type Product {
-  # Example field (placeholder)
-  exampleField: Int
+  id: ID
+  name: String
+  price: Int
+  description: String
+  image: String
+  brand: String
+  createdAt: String
+  updatedAt: String
 }
 
 input CreateProductInput {
-  # Example field (placeholder)
-  exampleField: Int
+  name: String
+  price: Int
+  description: String
+  image: String
+  brand: String
 }
 
 input UpdateProductInput {
-  id: Int!
+  id: Int
+  name: String
+  price: Int
+  description: String
+  image: String
+  brand: String
 }
 
 type Query {
