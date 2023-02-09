@@ -9,12 +9,12 @@ export class PaymentService {
   private readonly stripe: Stripe;
 
   constructor(private readonly config: ConfigService, private readonly prisma: PrismaService) {
-    this.stripe = new Stripe(this.config.get("STRIPE_PRIVATE")!, {
+    this.stripe = new Stripe(this.config.get("STRIPE_PRIVATE") ?? "", {
       apiVersion: "2022-11-15",
     })
   }
  
-  async createCheckoutSession(items: { id: number; quantity: number }[]): Promise<CreateSessionResponseDto> {
+  async createCheckoutSession(items: { id: number; quantity: number }[]): Promise<CreateSessionResponseDto | undefined> {
     const storedItems = await Promise.all(
       items.map(async (item) => {
         const storedItem = await this.prisma.product.findUnique({
@@ -40,6 +40,9 @@ export class PaymentService {
       success_url: 'http://localhost:3000/success',
       cancel_url: 'http://localhost:3000/cancel',
     });
-    return { url: session.url! };
+    
+    if(session.url) {
+      return { url: session.url }
+    }
   }
 }
