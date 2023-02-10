@@ -15,6 +15,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  email             String
   firstName         String
   lastName          String
   password          String
@@ -86,6 +87,7 @@ model Subscription {
   id        Int              @id @default(autoincrement())
   createdAt DateTime         @default(now())
   updatedAt DateTime         @updatedAt
+  price     Int
   role      SubscriptionRole @default(BASIC)
   User      User[]
 }
