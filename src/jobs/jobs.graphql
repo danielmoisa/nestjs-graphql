@@ -1,0 +1,51 @@
+type Job {
+  id: ID!
+  title: String!
+  experience: Int!
+  description: String!
+  imageUrl: String!
+  type: JobType!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  userId: Int
+  companyId: Int
+}
+
+input CreateJobInput {
+  title: String!
+  experience: Int!
+  description: String!
+  imageUrl: String!
+  type: JobType!
+  userId: Int
+  companyId: Int
+}
+
+input UpdateJobInput {
+  id: Int!
+  title: String!
+  experience: Int!
+  description: String!
+  imageUrl: String!
+  type: JobType!
+  userId: Int
+  companyId: Int
+}
+
+type Query {
+  jobs: [Job]!
+  job(id: Int!): Job
+}
+
+type Mutation {
+  createJob(createJobInput: CreateJobInput!): Job!
+  updateJob(updateJobInput: UpdateJobInput!): Job!
+  removeJob(id: Int!): Job
+}
+
+enum JobType {
+  REMOTE
+  ONSITE
+}
+
+scalar DateTime

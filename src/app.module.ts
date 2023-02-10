@@ -6,8 +6,8 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import { join } from 'path';
 import { PrismaService } from './prisma/prisma.service';
-import { ProductsModule } from './products/products.module';
 import { PaymentModule } from './payment/payment.module';
+import { JobsModule } from './jobs/jobs.module';
 
 @Module({
   imports:[GraphQLModule.forRootAsync({
@@ -29,8 +29,8 @@ import { PaymentModule } from './payment/payment.module';
     inject: [ConfigService]
   }),
   ConfigModule.forRoot({isGlobal: true}),
-  ProductsModule,
-  PaymentModule
+  PaymentModule,
+  JobsModule
 ],
   controllers: [],
   providers: [PrismaService],

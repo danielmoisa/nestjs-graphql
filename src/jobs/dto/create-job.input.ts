@@ -1,19 +1,20 @@
 import { Field, ObjectType } from "@nestjs/graphql";
+import { JobType } from "@prisma/client";
 
 @ObjectType()
-export class CreateProductInput {
+export class CreateJobInput {
     @Field()
-    name: string;
+    title: string;
 
     @Field()
-    price: number;
+    experience: number;
 
     @Field()
     description: string;
 
     @Field()
-    image: string;
+    imageUrl: string;
 
     @Field()
-    brand: string;
+    type: JobType
 }

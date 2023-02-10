@@ -8,7 +8,7 @@ export class PaymentResolver {
   constructor(private readonly paymentService: PaymentService) {}
 
   @Mutation('createCheckoutSession')
-  async createCheckoutSession(@Args({ name: "items", type: () => [CreateSessionInput]}) createPaymentInput: CreateSessionInput[]): Promise<CreateSessionResponseDto | undefined> {
+  async createCheckoutSession(@Args({ name: "items", type: () => [CreateSessionInput]}) createPaymentInput: CreateSessionInput[]): Promise<CreateSessionResponseDto | undefined | void> {
     return this.paymentService.createCheckoutSession(createPaymentInput);
   }
 }

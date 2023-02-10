@@ -14,35 +14,36 @@ export class PaymentService {
     })
   }
  
-  async createCheckoutSession(items: { id: number; quantity: number }[]): Promise<CreateSessionResponseDto | undefined> {
-    const storedItems = await Promise.all(
-      items.map(async (item) => {
-        const storedItem = await this.prisma.product.findUnique({
-          where: { id: item.id },
-        });
-        return {
-          price_data: {
-            currency: 'usd',
-            product_data: {
-              name: storedItem?.name ?? "",
-            },
-            unit_amount: storedItem?.price && storedItem.price * 100,
-          },
-          quantity: item.quantity,
-        };
-      }),
-    );
+  //TODO: Refactor this to use subscriptions
+  async createCheckoutSession(items: { id: number; quantity: number }[]): Promise<CreateSessionResponseDto | undefined | void> {
+    // const storedItems = await Promise.all(
+    //   items.map(async (item) => {
+    //     const storedItem = await this.prisma.product.findUnique({
+    //       where: { id: item.id },
+    //     });
+    //     return {
+    //       price_data: {
+    //         currency: 'usd',
+    //         product_data: {
+    //           name: storedItem?.name ?? "",
+    //         },
+    //         unit_amount: storedItem?.price && storedItem.price * 100,
+    //       },
+    //       quantity: item.quantity,
+    //     };
+    //   }),
+    // );
 
-    const session = await this.stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      mode: 'payment',
-      line_items: storedItems,
-      success_url: 'http://localhost:3000/success',
-      cancel_url: 'http://localhost:3000/cancel',
-    });
+    // const session = await this.stripe.checkout.sessions.create({
+    //   payment_method_types: ['card'],
+    //   mode: 'payment',
+    //   line_items: storedItems,
+    //   success_url: 'http://localhost:3000/success',
+    //   cancel_url: 'http://localhost:3000/cancel',
+    // });
     
-    if(session.url) {
-      return { url: session.url }
-    }
+    // if(session.url) {
+    //   return { url: session.url }
+    // }
   }
 }
