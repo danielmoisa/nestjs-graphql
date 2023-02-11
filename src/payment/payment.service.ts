@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Stripe } from 'stripe';
+import { CreateSessionResponseDto } from '../graphql';
 import { PrismaService } from '../prisma/prisma.service';
-import { CreateSessionResponseDto } from './dto/create-session.response';
 
 @Injectable()
 export class PaymentService {

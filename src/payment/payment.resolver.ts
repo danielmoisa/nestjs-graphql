@@ -1,6 +1,6 @@
 import { Resolver, Mutation, Args } from '@nestjs/graphql';
 import { PaymentService } from './payment.service';
-import { CreateSessionResponseDto } from './dto/create-session.response';
+import { CreateSessionResponseDto } from '../graphql';
 import { CreateSessionInput } from './dto/create-session-input.dto';
 
 @Resolver('Payment')

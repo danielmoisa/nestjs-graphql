@@ -1,9 +1,8 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { JobsService } from './jobs.service';
-import { CreateJobInput } from './dto/create-job.input';
-import { UpdateJobInput } from './dto/update-job.input';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
+import { CreateJobInput, UpdateJobInput } from '../graphql';
 
 @UseGuards(GqlAuthGuard)
 @Resolver('Job')

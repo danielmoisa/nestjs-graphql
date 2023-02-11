@@ -67,6 +67,7 @@ export interface CreateUserInput {
 }
 
 export interface UpdateUserInput {
+    id: string;
     email: string;
     firstName: string;
     lastName: string;

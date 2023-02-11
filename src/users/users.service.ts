@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { User } from '@prisma/client';
+import { UpdateUserInput } from '../graphql';
 import { PrismaService } from '../prisma/prisma.service';
-import { UpdateUserInput } from './dto/update-user.input';
 
 @Injectable()
 export class UsersService {
@@ -23,7 +23,7 @@ export class UsersService {
     return user;
   }
 
-  update(id: number, updateUserInput: UpdateUserInput) {
+  update(id: string, updateUserInput: UpdateUserInput) {
     return `This action updates a #${id} user`;
   }
 
