@@ -15,7 +15,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  email             String
+  email             String  @unique()
   firstName         String
   lastName          String
   password          String
@@ -23,10 +23,10 @@ model User {
   emailIsVerified   Boolean @default(false)
 
   savedJobs      Job[]
-  company        Company?     @relation(fields: [companyId], references: [id])
+  company        Company?      @relation(fields: [companyId], references: [id])
   companyId      Int?
-  subscription   Subscription @relation(fields: [subscriptionId], references: [id])
-  subscriptionId Int
+  subscription   Subscription? @relation(fields: [subscriptionId], references: [id])
+  subscriptionId Int?
 }
 
 model Company {

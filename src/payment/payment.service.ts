@@ -9,7 +9,7 @@ export class PaymentService {
   private readonly stripe: Stripe;
 
   constructor(private readonly config: ConfigService, private readonly prisma: PrismaService) {
-    this.stripe = new Stripe(this.config.get("STRIPE_PRIVATE") ?? "", {
+    this.stripe = new Stripe(this.config.get("stripePrivateKey") ?? "", {
       apiVersion: "2022-11-15",
     })
   }

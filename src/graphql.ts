@@ -13,6 +13,23 @@ export enum JobType {
     ONSITE = "ONSITE"
 }
 
+export interface RegisterUserInput {
+    email: string;
+    firstName: string;
+    lastName: string;
+    password: string;
+    profilePictureUrl: string;
+    emailIsVerified: boolean;
+    companyId?: Nullable<number>;
+    subscriptionId?: Nullable<number>;
+}
+
+export interface LoginUserInput {
+    id: string;
+    email: string;
+    password: string;
+}
+
 export interface CreateJobInput {
     title: string;
     experience: number;
@@ -39,6 +56,44 @@ export interface CreateSessionInput {
     quantity: number;
 }
 
+export interface CreateUserInput {
+    email: string;
+    firstName: string;
+    lastName: string;
+    password: string;
+    profilePictureUrl: string;
+    emailIsVerified: boolean;
+    companyId?: Nullable<number>;
+    subscriptionId?: Nullable<number>;
+}
+
+export interface UpdateUserInput {
+    email: string;
+    firstName: string;
+    lastName: string;
+    password: string;
+    profilePictureUrl: string;
+    emailIsVerified: boolean;
+    companyId?: Nullable<number>;
+    subscriptionId?: Nullable<number>;
+}
+
+export interface UserLoginResponse {
+    access_token?: Nullable<string>;
+}
+
+export interface IMutation {
+    registerUser(registerUserInput: RegisterUserInput): Nullable<User> | Promise<Nullable<User>>;
+    loginUser(loginUserInput?: Nullable<LoginUserInput>): Nullable<UserLoginResponse> | Promise<Nullable<UserLoginResponse>>;
+    createJob(createJobInput: CreateJobInput): Job | Promise<Job>;
+    updateJob(updateJobInput: UpdateJobInput): Job | Promise<Job>;
+    removeJob(id: number): Nullable<Job> | Promise<Nullable<Job>>;
+    createCheckoutSession(items: CreateSessionInput[]): Nullable<CreateSessionResponseDto> | Promise<Nullable<CreateSessionResponseDto>>;
+    createUser(createUserInput: CreateUserInput): User | Promise<User>;
+    updateUser(updateUserInput: UpdateUserInput): User | Promise<User>;
+    removeUser(id: number): Nullable<User> | Promise<Nullable<User>>;
+}
+
 export interface Job {
     id: string;
     title: string;
@@ -55,17 +110,24 @@ export interface Job {
 export interface IQuery {
     jobs(): Nullable<Job>[] | Promise<Nullable<Job>[]>;
     job(id: number): Nullable<Job> | Promise<Nullable<Job>>;
-}
-
-export interface IMutation {
-    createJob(createJobInput: CreateJobInput): Job | Promise<Job>;
-    updateJob(updateJobInput: UpdateJobInput): Job | Promise<Job>;
-    removeJob(id: number): Nullable<Job> | Promise<Nullable<Job>>;
-    createCheckoutSession(items: CreateSessionInput[]): Nullable<CreateSessionResponseDto> | Promise<Nullable<CreateSessionResponseDto>>;
+    users(): Nullable<Nullable<User>[]> | Promise<Nullable<Nullable<User>[]>>;
+    user(id: number): Nullable<User> | Promise<Nullable<User>>;
 }
 
 export interface CreateSessionResponseDto {
     url: string;
+}
+
+export interface User {
+    id: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    password: string;
+    profilePictureUrl: string;
+    emailIsVerified: boolean;
+    companyId?: Nullable<number>;
+    subscriptionId?: Nullable<number>;
 }
 
 export type DateTime = any;

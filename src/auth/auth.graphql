@@ -1,0 +1,25 @@
+input RegisterUserInput {
+  email: String!
+  firstName: String!
+  lastName: String!
+  password: String!
+  profilePictureUrl: String!
+  emailIsVerified: Boolean!
+  companyId: Int
+  subscriptionId: Int
+}
+
+input LoginUserInput {
+  id: ID!
+  email: String!
+  password: String!
+}
+
+type UserLoginResponse {
+  access_token: String
+}
+
+type Mutation {
+  registerUser(registerUserInput: RegisterUserInput!): User
+  loginUser(loginUserInput: LoginUserInput): UserLoginResponse
+}
