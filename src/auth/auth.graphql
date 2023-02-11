@@ -10,7 +10,6 @@ input RegisterUserInput {
 }
 
 input LoginUserInput {
-  id: ID!
   email: String!
   password: String!
 }

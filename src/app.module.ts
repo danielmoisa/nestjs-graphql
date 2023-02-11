@@ -23,7 +23,7 @@ import { join } from 'path';
     useFactory: (config: ConfigService) => {
       return {
         cors: {
-          origin: config.get("apolloPlaygroundUrl"),
+          origin: [config.get("apolloPlaygroundUrl"), config.get("clientUrl")],
           credentials: true,
         },
         typePaths: ['./**/*.graphql'],

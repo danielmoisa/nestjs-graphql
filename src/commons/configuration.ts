@@ -1,7 +1,7 @@
 import { ConfigFactory } from "@nestjs/config";
 
 const configuration = {
-    clientUrl: process.env.CLIENT_URL ?? "http://localshot:3000",
+    clientUrl: process.env.CLIENT_URL,
     jwtSecret: process.env.JWT_SECRET,
     apolloPlaygroundUrl: process.env.APOLLO_PLAYGROUND_URL,
     stripePrivateKey: process.env.STRIPE_PRIVATE_KEY,

@@ -25,7 +25,6 @@ export interface RegisterUserInput {
 }
 
 export interface LoginUserInput {
-    id: string;
     email: string;
     password: string;
 }
