@@ -112,6 +112,7 @@ export interface IQuery {
     job(id: number): Nullable<Job> | Promise<Nullable<Job>>;
     users(): Nullable<Nullable<User>[]> | Promise<Nullable<Nullable<User>[]>>;
     user(id: number): Nullable<User> | Promise<Nullable<User>>;
+    getMe(): Nullable<User> | Promise<Nullable<User>>;
 }
 
 export interface CreateSessionResponseDto {

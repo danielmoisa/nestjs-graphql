@@ -1,7 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { UpdateUserInput } from '../graphql';
 import { PrismaService } from '../prisma/prisma.service';
+import * as argon from 'argon2';
+
 
 @Injectable()
 export class UsersService {
@@ -23,11 +25,22 @@ export class UsersService {
     return user;
   }
 
-  update(id: string, updateUserInput: UpdateUserInput) {
-    return `This action updates a #${id} user`;
+  async validateUser(email: string, password: string) {
+    const user = await this.prisma.user.findUnique({ where : { email }});
+    if(!user) throw new NotFoundException("User not found!")
+
+    const passwordIsValid = await argon.verify(user.password, password);
+    if (!passwordIsValid) {
+      throw new UnauthorizedException('Credentials are not valid.');
+    }
+    return user;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
-  }
+  // update(id: string, updateUserInput: UpdateUserInput) {
+  //   return `This action updates a #${id} user`;
+  // }
+
+  // remove(id: number) {
+  //   return `This action removes a #${id} user`;
+  // }
 }

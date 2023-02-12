@@ -7,12 +7,14 @@ import { UsersModule } from '../users/users.module';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { AuthResolver } from './auth.resolver';
+import { AuthController } from './auth.controller';
+import { LocalStrategy } from './strategies/local.strategy';
 
 @Module({
   imports:[
     UsersModule,
     PassportModule.register({
-      defaultStrategy: "jwt"
+      defaultStrategy: "jwt",
     }),
     JwtModule.registerAsync({
      useFactory: async (config: ConfigService) => ({
@@ -22,6 +24,7 @@ import { AuthResolver } from './auth.resolver';
      inject: [ConfigService],
     }),
   ],
-  providers: [AuthService, PrismaService, ConfigService, JwtStrategy, AuthResolver]
+  providers: [AuthService, PrismaService, ConfigService, JwtStrategy, LocalStrategy, AuthResolver],
+  controllers: [AuthController]
 })
 export class AuthModule {}
