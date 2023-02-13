@@ -63,13 +63,20 @@ export class AuthService {
   }
   
   async validateUser(email: string, password: string) {
-    const user = await this.prisma.user.findUnique({ where : { email }});
+    const user: Partial<User | null> = await this.prisma.user.findUnique({ where : { email }});
     if(!user) throw new NotFoundException("User not found!")
 
-    const passwordIsValid = await argon.verify(user.password, password);
+    let passwordIsValid;
+
+    if(user?.password) {
+      passwordIsValid = await argon.verify(user.password, password);
+    }
+
     if (!passwordIsValid) {
       throw new UnauthorizedException('Credentials are not valid.');
     }
+
+    delete user?.password;
     return user;
   }
 }
