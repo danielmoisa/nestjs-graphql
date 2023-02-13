@@ -24,11 +24,6 @@ export interface RegisterUserInput {
     subscriptionId?: Nullable<number>;
 }
 
-export interface LoginUserInput {
-    email: string;
-    password: string;
-}
-
 export interface CreateJobInput {
     title: string;
     experience: number;
@@ -78,13 +73,8 @@ export interface UpdateUserInput {
     subscriptionId?: Nullable<number>;
 }
 
-export interface UserLoginResponse {
-    access_token?: Nullable<string>;
-}
-
 export interface IMutation {
     registerUser(registerUserInput: RegisterUserInput): Nullable<User> | Promise<Nullable<User>>;
-    loginUser(loginUserInput?: Nullable<LoginUserInput>): Nullable<UserLoginResponse> | Promise<Nullable<UserLoginResponse>>;
     createJob(createJobInput: CreateJobInput): Job | Promise<Job>;
     updateJob(updateJobInput: UpdateJobInput): Job | Promise<Job>;
     removeJob(id: number): Nullable<Job> | Promise<Nullable<Job>>;

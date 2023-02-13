@@ -8,7 +8,6 @@ import { PrismaService } from '../prisma/prisma.service';
 import * as argon from 'argon2';
 import { Response } from "express";
 
-
 export interface TokenPayload {
   id: number;
 }
@@ -56,7 +55,7 @@ export class AuthService {
     });
   }
 
-  logout(response: Response) {
+  async logout(response: Response) {
     response.cookie('Authentication', '', {
       httpOnly: true,
       expires: new Date(),
