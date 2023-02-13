@@ -25,17 +25,6 @@ export class UsersService {
     return user;
   }
 
-  async validateUser(email: string, password: string) {
-    const user = await this.prisma.user.findUnique({ where : { email }});
-    if(!user) throw new NotFoundException("User not found!")
-
-    const passwordIsValid = await argon.verify(user.password, password);
-    if (!passwordIsValid) {
-      throw new UnauthorizedException('Credentials are not valid.');
-    }
-    return user;
-  }
-
   // update(id: string, updateUserInput: UpdateUserInput) {
   //   return `This action updates a #${id} user`;
   // }

@@ -73,6 +73,14 @@ export interface UpdateUserInput {
     subscriptionId?: Nullable<number>;
 }
 
+export interface IQuery {
+    getCurrentUser(): Nullable<User> | Promise<Nullable<User>>;
+    jobs(): Nullable<Job>[] | Promise<Nullable<Job>[]>;
+    job(id: number): Nullable<Job> | Promise<Nullable<Job>>;
+    users(): Nullable<Nullable<User>[]> | Promise<Nullable<Nullable<User>[]>>;
+    user(id: number): Nullable<User> | Promise<Nullable<User>>;
+}
+
 export interface IMutation {
     registerUser(registerUserInput: RegisterUserInput): Nullable<User> | Promise<Nullable<User>>;
     createJob(createJobInput: CreateJobInput): Job | Promise<Job>;
@@ -95,14 +103,6 @@ export interface Job {
     updatedAt: DateTime;
     userId?: Nullable<number>;
     companyId?: Nullable<number>;
-}
-
-export interface IQuery {
-    jobs(): Nullable<Job>[] | Promise<Nullable<Job>[]>;
-    job(id: number): Nullable<Job> | Promise<Nullable<Job>>;
-    users(): Nullable<Nullable<User>[]> | Promise<Nullable<Nullable<User>[]>>;
-    user(id: number): Nullable<User> | Promise<Nullable<User>>;
-    getMe(): Nullable<User> | Promise<Nullable<User>>;
 }
 
 export interface CreateSessionResponseDto {

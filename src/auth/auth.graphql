@@ -9,6 +9,10 @@ input RegisterUserInput {
   subscriptionId: Int
 }
 
+type Query {
+  getCurrentUser: User
+}
+
 type Mutation {
   registerUser(registerUserInput: RegisterUserInput!): User
 }

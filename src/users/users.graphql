@@ -36,7 +36,6 @@ input UpdateUserInput {
 type Query {
   users: [User]
   user(id: Int!): User
-  getMe: User
 }
 
 type Mutation {
