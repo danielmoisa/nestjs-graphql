@@ -1,10 +1,10 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { Injectable, NotFoundException, UseGuards} from '@nestjs/common';
 import { User } from '@prisma/client';
+import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
 import { UpdateUserInput } from '../graphql';
 import { PrismaService } from '../prisma/prisma.service';
-import * as argon from 'argon2';
 
-
+@UseGuards(GqlAuthGuard)
 @Injectable()
 export class UsersService {
   constructor(private readonly prisma:PrismaService){}
@@ -25,9 +25,18 @@ export class UsersService {
     return user;
   }
 
-  // update(id: string, updateUserInput: UpdateUserInput) {
-  //   return `This action updates a #${id} user`;
-  // }
+  async update( updateUserInput: UpdateUserInput) {
+    const user = await this.prisma.user.findUnique({ where: { id: Number(updateUserInput.id) } });
+    if(!user) throw new NotFoundException("Job not found!");
+
+    return await this.prisma.user.update({
+      where: { id: Number(updateUserInput.id)},
+      data: {
+        firstName: updateUserInput.firstName ?? "",
+        lastName: updateUserInput.lastName ?? "",
+      }
+    })
+  }
 
   // remove(id: number) {
   //   return `This action removes a #${id} user`;

@@ -23,14 +23,9 @@ input CreateUserInput {
 
 input UpdateUserInput {
   id: ID!
-  email: String!
-  firstName: String!
-  lastName: String!
-  password: String!
-  profilePictureUrl: String!
-  emailIsVerified: Boolean!
-  companyId: Int
-  subscriptionId: Int
+  firstName: String
+  lastName: String
+  profilePictureUrl: String
 }
 
 type Query {

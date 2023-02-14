@@ -5,7 +5,6 @@ import { AuthService } from './auth.service';
 import { CurrentUser } from './decorators/current-user.decorator';
 import { GqlAuthGuard } from './guards/gql-auth.guard';
 
-@UseGuards(GqlAuthGuard)
 @Resolver()
 export class AuthResolver {
     constructor(private readonly authService: AuthService) {}
@@ -15,6 +14,7 @@ export class AuthResolver {
       return this.authService.register(registerUserInput);
     }
 
+    @UseGuards(GqlAuthGuard)
     @Query("getCurrentUser")
     getCurrentUser(@CurrentUser() user: User) {
       return user;

@@ -63,14 +63,9 @@ export interface CreateUserInput {
 
 export interface UpdateUserInput {
     id: string;
-    email: string;
-    firstName: string;
-    lastName: string;
-    password: string;
-    profilePictureUrl: string;
-    emailIsVerified: boolean;
-    companyId?: Nullable<number>;
-    subscriptionId?: Nullable<number>;
+    firstName?: Nullable<string>;
+    lastName?: Nullable<string>;
+    profilePictureUrl?: Nullable<string>;
 }
 
 export interface IQuery {
