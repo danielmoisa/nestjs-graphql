@@ -2,20 +2,16 @@ import { Injectable, NotFoundException, UnauthorizedException} from '@nestjs/com
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '@prisma/client';
-import { UsersService } from '../users/users.service';
 import { CreateUserInput} from '../graphql';
 import { PrismaService } from '../prisma/prisma.service';
 import * as argon from 'argon2';
 import { Response } from "express";
+import { TokenPayload } from './interfaces/token-payload.interface';
 
-export interface TokenPayload {
-  id: number;
-}
 
 @Injectable()
 export class AuthService {
     constructor(
-        private readonly usersService: UsersService,
         private readonly jwtService: JwtService,
         private readonly config: ConfigService,
         private readonly prisma: PrismaService,
@@ -44,7 +40,7 @@ export class AuthService {
 
     const expires = new Date();
     expires.setSeconds(
-      expires.getSeconds() + 3000,
+      expires.getSeconds() + this.config.get("jwtExpires"),
     );
 
     const token = this.jwtService.sign(tokenPayload);

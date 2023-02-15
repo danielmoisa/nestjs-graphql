@@ -11,7 +11,7 @@ export class AuthResolver {
 
     @Mutation('registerUser')
     async register(@Args('registerUserInput') registerUserInput: RegisterUserInput) {
-      return this.authService.register(registerUserInput);
+      return await this.authService.register(registerUserInput);
     }
 
     @UseGuards(GqlAuthGuard)

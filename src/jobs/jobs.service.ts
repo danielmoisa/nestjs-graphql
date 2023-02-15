@@ -30,7 +30,7 @@ export class JobsService {
     if(!job) throw new NotFoundException("Job not found!");
 
     return await this.prisma.job.update({
-      where: { id},
+      where: { id },
       data: updateJobInput
     })
   }
