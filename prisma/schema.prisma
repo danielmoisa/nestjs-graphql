@@ -10,13 +10,94 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Product {
-  id          Int      @id @default(autoincrement())
-  name        String
-  price       Int
+model User {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  email             String  @unique()
+  firstName         String
+  lastName          String
+  password          String
+  profilePictureUrl String
+  emailIsVerified   Boolean @default(false)
+
+  savedJobs      Job[]
+  company        Company?      @relation(fields: [companyId], references: [id])
+  companyId      Int?
+  subscription   Subscription? @relation(fields: [subscriptionId], references: [id])
+  subscriptionId Int?
+}
+
+model Company {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name              String
+  description       String
+  website           String
+  size              Int
+  companyPictureUrl String
+
+  listedJobs Job[]
+
+  locations Location[]
+  User      User[]
+}
+
+model Job {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  title       String
   description String
-  image       String
-  brand       String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @default(now())
+  imageUrl    String
+  experience  Int
+  type        JobType
+  locations   Location[]
+  skills      Skill[]
+
+  User      User?    @relation(fields: [userId], references: [id])
+  userId    Int?
+  Company   Company? @relation(fields: [companyId], references: [id])
+  companyId Int?
+}
+
+model Skill {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  Job       Job?     @relation(fields: [jobId], references: [id])
+  jobId     Int?
+}
+
+model Location {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  name      String
+  Job       Job[]
+  Company   Company[]
+}
+
+model Subscription {
+  id        Int              @id @default(autoincrement())
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  price     Int
+  role      SubscriptionRole @default(BASIC)
+  User      User[]
+}
+
+enum JobType {
+  ONSITE
+  REMOTE
+}
+
+enum SubscriptionRole {
+  BASIC
+  PRO
 }

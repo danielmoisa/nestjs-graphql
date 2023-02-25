@@ -4,18 +4,26 @@ import { ConfigService } from '@nestjs/config';
 import { ConfigModule } from '@nestjs/config/dist';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
-import { join } from 'path';
 import { PrismaService } from './prisma/prisma.service';
-import { ProductsModule } from './products/products.module';
 import { PaymentModule } from './payment/payment.module';
+import { JobsModule } from './jobs/jobs.module';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
+import configuration from './commons/configuration';
+import { join } from 'path';
 
 @Module({
-  imports:[GraphQLModule.forRootAsync({
+  imports:[
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [configuration],
+    }),
+    GraphQLModule.forRootAsync({
     driver: ApolloDriver,
     useFactory: (config: ConfigService) => {
       return {
         cors: {
-          origin: config.get("APOLLO_PLAYGROUND_URL"),
+          origin: [config.get("apolloPlaygroundUrl"), config.get("clientUrl")],
           credentials: true,
         },
         typePaths: ['./**/*.graphql'],
@@ -28,9 +36,10 @@ import { PaymentModule } from './payment/payment.module';
     },
     inject: [ConfigService]
   }),
-  ConfigModule.forRoot({isGlobal: true}),
-  ProductsModule,
-  PaymentModule
+  PaymentModule,
+  JobsModule,
+  AuthModule,
+  UsersModule
 ],
   controllers: [],
   providers: [PrismaService],

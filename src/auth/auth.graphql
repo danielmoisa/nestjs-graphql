@@ -1,0 +1,18 @@
+input RegisterUserInput {
+  email: String!
+  firstName: String!
+  lastName: String!
+  password: String!
+  profilePictureUrl: String!
+  emailIsVerified: Boolean!
+  companyId: Int
+  subscriptionId: Int
+}
+
+type Query {
+  getCurrentUser: User
+}
+
+type Mutation {
+  registerUser(registerUserInput: RegisterUserInput!): User
+}
